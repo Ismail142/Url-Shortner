@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "../styles/ShortenLinks.css";
 import Form from "./Form";
-import axios from "axios";
 
 function ShortenLinks() {
 	const copyText = (id) => {
@@ -13,17 +12,6 @@ function ShortenLinks() {
 	};
 
 	const callApi = function () {
-		const url = 'https://google.com/';
-		const apiUrl = 'https://cleanuri.com/api/v1/shorten';
-		
-		axios.post(apiUrl, { url: encodeURIComponent(url) })
-		  .then(response => {
-			 const shortenedUrl = response.data.result_url;
-			 console.log('Shortened URL:', shortenedUrl);
-		  })
-		  .catch(error => {
-			 console.error('Error:', error.message);
-		  });
 	};
 
 	callApi();
