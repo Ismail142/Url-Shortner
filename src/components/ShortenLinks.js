@@ -45,7 +45,7 @@ function ShortenLinks() {
 		const shortenLink = await callApi(link);
 		localStorage.setItem(localStorage.length+1,[link,shortenLink??'error']);
 		setData((prevData)=>{
-			return [...prevData,`${link},${shortenLink}`]
+			return [`${link},${shortenLink}`,...prevData]
 		})
 	}
 
