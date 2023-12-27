@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Form.css";
 
-function Form() {
+function Form(props) {
    const [inputLink,setInputLink] = useState('');
    const [message,setMessage] = useState('');
    const [error,setError] = useState(false);
@@ -12,14 +12,17 @@ function Form() {
 
    const submit = function(event){
       event.preventDefault();
-      checkError(inputLink);
+      const response = checkError(inputLink);
+      response && props.addUrl(inputLink);
       setInputLink("");
    }
    const checkError = function(link){
-      if (!"") {
+      if (!link) {
          setMessage("Please add a  link");
          setError(true)
+         return false
       }
+      return true
    }
    const reset = ()=>{
       setError(false)
