@@ -1,0 +1,30 @@
+@import 'tailwindcss/base';
+@import'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+body {
+   font-family: 'Poppins', sans-serif;
+   overflow-x: hidden;
+}
+
+.container {
+   margin: 0 auto 0 auto;
+   @apply w-[90%] md:w-[80%];
+}
+
+.btn-primary {
+   text-decoration: none;
+   border-radius: 40px;
+   background-color: hsl(180, 66%, 49%);
+   color: white;
+   font-weight: 400;
+   transition: all .2s;
+   border: 1px solid hsl(180, 74%, 46%);
+}
+
+.btn-primary:hover {
+   color: white;
+   background-color: hsla(180, 66%, 49%, 0.747);
+}
+

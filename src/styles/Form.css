@@ -1,0 +1,16 @@
+form {
+   background-color: #3A3053;
+   @apply rounded-md flex md:justify-center gap-x-8 flex-col md:flex-row
+   gap-y-4 md:p-[3.5rem] p-[2rem] md:bg-[url('/public/images/bg-shorten-desktop.svg')]
+   bg-[url('/public/images/bg-shorten-mobile.svg')] md:bg-center bg-cover;
+}
+
+.submit-btn {
+   @apply bg-[#29cfcf] text-white px-10 md:py-2 py-4 rounded-md
+   hover:bg-[#2fe7e7] duration-200;
+}
+
+.error {
+   color: #f46262;
+   @apply mt-1 md:absolute italic;
+}

@@ -1,0 +1,24 @@
+#boost-link {
+   background-image: url('/public/images/bg-boost-desktop.svg');
+   background-repeat: no-repeat;
+   background-position:center;
+   background-size: cover;
+   background-color:  #3A3053;
+   color: white;
+}
+
+footer a:hover {
+   color: #29cfcf;
+}
+
+footer a {
+   transition: all .2s;
+}
+
+.svg-link {
+   cursor: pointer;
+   transition: all .2s;
+}
+.svg-link:hover path {
+   fill: #29cfcf;
+}

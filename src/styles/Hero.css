@@ -1,0 +1,23 @@
+.hero-container {
+   @apply flex justify-between gap-x-[7rem] mb-[2rem] py-[20px]
+   flex-col md:flex-row max-md:flex-col-reverse gap-y-[3rem];
+}
+
+#hero {
+   @apply mb-[10rem]
+}
+
+.description {
+   @apply flex flex-col justify-center max-md:text-center
+}
+
+h1 {
+   @apply md:text-[4.5rem] text-[2.5rem] w-full md:w-max font-bold
+   leading-[1.2]
+}
+
+
+.btn {
+   padding: 12px 38px;
+   @apply self-center my-[10px] md:self-start
+}
