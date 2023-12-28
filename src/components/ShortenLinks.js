@@ -6,7 +6,7 @@ function ShortenLinks() {
 	const defaultData = [];
 	for (const key in localStorage) {
 		if (key.toString() === "length") break;
-		defaultData.push(localStorage[key]);
+		defaultData.unshift(localStorage[key]);
 	}
 
 	const [data, setData] = useState(defaultData);
