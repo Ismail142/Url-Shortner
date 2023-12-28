@@ -45,7 +45,7 @@ function ShortenLinks() {
 	const addUrl = async function(link){
 		const shortenLink = await callApi(link.toLowerCase());
 
-		if (response!='error') {
+		if (shortenLink!='error') {
 			setData((prevData)=>{
 			return [`${link},${shortenLink}`,...prevData]
 		})
