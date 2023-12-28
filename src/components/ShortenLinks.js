@@ -22,7 +22,7 @@ function ShortenLinks() {
 	const callApi = async function (url) {
 		let response;
 		await fetch(
-			"https://cors-anywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten",
+			"https://cleanuri.com/api/v1/shorten",
 			{
 				method: "POST",
 				headers: {
