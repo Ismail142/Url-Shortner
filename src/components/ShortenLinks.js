@@ -37,14 +37,16 @@ function ShortenLinks() {
 			})
 			.catch((error) => {
 				alert(error);
+				response= 'error';
 			});
 			return response;
 	};
 
 	const addUrl = async function(link){
 		const shortenLink = await callApi(link.toLowerCase());
-		
-		setData((prevData)=>{
+
+		if (response!='error') {
+			setData((prevData)=>{
 			return [`${link},${shortenLink}`,...prevData]
 		})
 		localStorage.clear();
@@ -52,6 +54,7 @@ function ShortenLinks() {
 			localStorage.setItem(index,value);
 		});
 		localStorage.setItem(localStorage.length, [`${link},${shortenLink}`])
+		}
 	}
 
 	return (
