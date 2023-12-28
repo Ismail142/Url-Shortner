@@ -22,15 +22,13 @@ function ShortenLinks() {
 	const callApi = async function (url) {
 		let response;
 		await fetch(
-			"https://url-shortener-service.p.rapidapi.com/shorten",
+			"https://corsanywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten",
 			{
-				method: 'POST',
+				method: "POST",
 				headers: {
-					'content-type': 'application/json',
-				         'X-RapidAPI-Key': '8d3eec877fmshba8103241273a51p11a854jsnb9edf9964473',
-					'X-RapidAPI-Host': 'url-shortener-service.p.rapidapi.com'
+					"Content-Type": "application/x-www-form-urlencoded",
 				},
-				body:  {url}
+				body: "url=" + encodeURIComponent(url),
 			}
 		)
 			.then((response) => response.json())
