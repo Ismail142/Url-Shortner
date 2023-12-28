@@ -22,18 +22,20 @@ function ShortenLinks() {
 	const callApi = async function (url) {
 		let response;
 		await fetch(
-			"https://cleanuri.com/api/v1/shorten",
+			"https://url-shortner10.p.rapidapi.com/lits.rocks/",
 			{
-				method: "POST",
+				method: 'POST',
 				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
+					'content-type': 'application/json',
 				},
-				body: "url=" + encodeURIComponent(url),
+				body: {
+					url: url;
+	}
 			}
 		)
 			.then((response) => response.json())
 			.then((data) => {
-			   response = data.result_url;
+			   response = data.shortUrl;
 			})
 			.catch((error) => {
 				alert(error);
