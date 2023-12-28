@@ -28,7 +28,7 @@ function ShortenLinks() {
 				headers: {
 					'content-type': 'application/json',
 					'X-RapidAPI-Host': 'url-shortner10.p.rapidapi.com',
-					'X-RapidAPI-Key': process.env.KEY
+					'X-RapidAPI-Key': '8d3eec877fmshba8103241273a51p11a854jsnb9edf9964473',
 				},
 				body: {
 					url: url
