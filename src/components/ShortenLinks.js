@@ -6,7 +6,7 @@ function ShortenLinks() {
 	const defaultData = [];
 	for (const key in localStorage) {
 		if (key.toString() === "length") break;
-		defaultData.unshift(localStorage[key]);
+		defaultData.push(localStorage[key]);
 	}
 
 	const [data, setData] = useState(defaultData);
@@ -28,7 +28,7 @@ function ShortenLinks() {
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
 				},
-				body: "url=" + encodeURIComponent(url),
+				body: "url=" + encodeURIComponent(url.toLocaleLowerCase()),
 			}
 		)
 			.then((response) => response.json())
@@ -43,9 +43,13 @@ function ShortenLinks() {
 
 	const addUrl = async function(link){
 		const shortenLink = await callApi(link);
-		localStorage.setItem(localStorage.length+1,[link,shortenLink??'error']);
+		
 		setData((prevData)=>{
 			return [`${link},${shortenLink}`,...prevData]
+		})
+		localStorage.clear();
+		data.forEach((value,index)=>{
+			localStorage.setItem(index,value);
 		})
 	}
 
