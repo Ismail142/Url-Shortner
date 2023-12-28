@@ -31,7 +31,7 @@ function ShortenLinks() {
 					'X-RapidAPI-Key': process.env.KEY
 				},
 				body: {
-					url: url;
+					url: url
 	}
 			}
 		)
