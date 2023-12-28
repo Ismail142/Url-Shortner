@@ -30,9 +30,7 @@ function ShortenLinks() {
 				         'X-RapidAPI-Key': '8d3eec877fmshba8103241273a51p11a854jsnb9edf9964473',
 					'X-RapidAPI-Host': 'url-shortener-service.p.rapidapi.com'
 				},
-				body:  new URLSearchParams({
-					url: url
-				})
+				body:  {url}
 			}
 		)
 			.then((response) => response.json())
