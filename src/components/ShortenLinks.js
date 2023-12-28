@@ -22,22 +22,22 @@ function ShortenLinks() {
 	const callApi = async function (url) {
 		let response;
 		await fetch(
-			"https://url-shortner10.p.rapidapi.com/lits.rocks/",
+			"https://url-shortener-service.p.rapidapi.com/shorten",
 			{
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json',
-					'X-RapidAPI-Host': 'url-shortner10.p.rapidapi.com',
-					'X-RapidAPI-Key': '8d3eec877fmshba8103241273a51p11a854jsnb9edf9964473',
+				         'X-RapidAPI-Key': '8d3eec877fmshba8103241273a51p11a854jsnb9edf9964473',
+					'X-RapidAPI-Host': 'url-shortener-service.p.rapidapi.com'
 				},
-				body: {
+				body:  new URLSearchParams({
 					url: url
-	}
+				})
 			}
 		)
 			.then((response) => response.json())
 			.then((data) => {
-			   response = data.shortUrl;
+			   response = data.result_url;
 			})
 			.catch((error) => {
 				alert(error);
