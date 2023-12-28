@@ -28,7 +28,7 @@ function ShortenLinks() {
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
 				},
-				body: "url=" + encodeURIComponent(url.toLocaleLowerCase()),
+				body: "url=" + encodeURIComponent(url),
 			}
 		)
 			.then((response) => response.json())
@@ -42,7 +42,7 @@ function ShortenLinks() {
 	};
 
 	const addUrl = async function(link){
-		const shortenLink = await callApi(link);
+		const shortenLink = await callApi(link.toLowerCase());
 		
 		setData((prevData)=>{
 			return [`${link},${shortenLink}`,...prevData]
