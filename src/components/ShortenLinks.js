@@ -27,6 +27,8 @@ function ShortenLinks() {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json',
+					'X-RapidAPI-Host': 'url-shortner10.p.rapidapi.com',
+					'X-RapidAPI-Key': process.env.KEY
 				},
 				body: {
 					url: url;
