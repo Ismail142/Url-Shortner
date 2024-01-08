@@ -30,7 +30,6 @@ function ShortenLinks() {
 
 	const callApi = async function (url) {
 		const key = process.env.REACT_APP_API_KEY;
-		console.log(key);
 		const response = await fetch("https://url-shortener-service.p.rapidapi.com/shorten", {
 			method: "POST",
 			headers: {
