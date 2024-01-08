@@ -14,11 +14,16 @@ function Form(props) {
       event.preventDefault();
       const response = checkError(inputLink);
       response && props.addUrl(inputLink);
-      setInputLink("");
+      response && setInputLink("");
    }
    const checkError = function(link){
       if (!link) {
          setMessage("Please add a  link");
+         setError(true)
+         return false
+      }
+      else if (link.slice(0,8).toLowerCase()!=="https://"){
+         setMessage("Adere the protocol: https://");
          setError(true)
          return false
       }
@@ -36,7 +41,7 @@ function Form(props) {
 				className={`p-4 rounded-md w-full ${error?'border-[#f46262] border-[3px]':''}`}
             value={inputLink} onChange={updateInput} onFocus={reset}
 			></input>
-         <p className={`error ${error?'':'hidden'} text-[13px]`}>{message}</p>
+         <p className={`error ${error?'':'hidden'} text-[13px] text-[#f46262]`}>{message}</p>
          </div>
 			<button type="submit" className="submit-btn">
 				Shorten It!

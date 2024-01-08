@@ -11,6 +11,5 @@ form {
 }
 
 .error {
-   color: #f46262;
    @apply mt-1 md:absolute italic;
 }

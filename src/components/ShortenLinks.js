@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/ShortenLinks.css";
 import Form from "./Form";
 
 function ShortenLinks() {
-	const defaultData = [];
-	for (const key in localStorage) {
-		if (key.toString() === "length") break;
-		defaultData.unshift(localStorage[key]);
-	}
+	const [data, setData] = useState([]);
 
-	const [data, setData] = useState(defaultData);
+	useEffect(() => {
+		for (const key in localStorage) {
+			if (key.toString() === "length") break;
+			setData((prevData) => {
+				return [{"key":key, "data":localStorage[key]},...prevData]
+			});
+		}
+		return () => {};
+	}, []);
 
 	const copyText = (id) => {
 		const text = document.getElementById(`url-${id}`);
@@ -19,59 +23,68 @@ function ShortenLinks() {
 		navigator.clipboard.writeText(text.textContent);
 	};
 
+	const deleteUrl = (lKey,id) => {
+		localStorage.removeItem(lKey);
+		setData((prevData) => prevData.filter((val, key) => key !== id));
+	};
+
 	const callApi = async function (url) {
-		let response;
-		await fetch(
-			"https://corsanywhere.herokuapp.com/https://cleanuri.com/api/v1/shorten",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: "url=" + encodeURIComponent(url),
-			}
-		)
+		const key = process.env.REACT_APP_API_KEY;
+		const response = await fetch("https://url-shortener-service.p.rapidapi.com/shorten", {
+			method: "POST",
+			headers: {
+				'content-type': 'application/x-www-form-urlencoded',
+				'X-RapidAPI-Key': key,
+				'X-RapidAPI-Host': 'url-shortener-service.p.rapidapi.com'
+			},
+			body: new URLSearchParams({
+				url: url
+			})
+		})
 			.then((response) => response.json())
 			.then((data) => {
-			   response = data.result_url;
+				return data.result_url;
 			})
 			.catch((error) => {
 				alert(error);
-				response= 'error';
 			});
-			return response;
+
+		return response;
 	};
+	
 
-	const addUrl = async function(link){
-		const shortenLink = await callApi(link.toLowerCase());
-
-		if (shortenLink!='error') {
-			setData((prevData)=>{
-			return [`${link},${shortenLink}`,...prevData]
-		})
-		localStorage.clear();
-		data.forEach((value,index)=>{
-			localStorage.setItem(index,value);
-		});
-		localStorage.setItem(localStorage.length, [`${link},${shortenLink}`])
-		}
-	}
+	const addUrl = async function (link) {
+		const show = document.querySelector('.error');
+		show.textContent = "shortening";
+		show.classList.add("text-slate-400")
+		show.classList.remove("hidden");
+		const shortenLink = await callApi(link);
+		const id = localStorage.length+1;
+		localStorage.setItem(id, [
+			link,
+			shortenLink ?? "error",
+		]);
+		show.classList.add("hidden");
+		setData((prevData) => [{"key":id,"data":`${link},${shortenLink??'error'}`}, ...prevData]);
+	};
 
 	return (
 		<section id="links" className="relative">
 			<div className="absolute w-full -top-20">
-				<Form addUrl={addUrl}/>
+				<Form addUrl={addUrl} />
 			</div>
 			<div className="container links-container">
 				{data.map((value, key) => {
-					const originLink = value.split(',')[0];
-					const shortenLink = value.split(',')[1];
+					const link = value.data;
+					const originLink = link.split(",")[0];
+					const shortenLink = link.split(",")[1];
 					return (
-						<div key={key}
+						<div
+							key={key}
 							className="bg-white rounded-sm flex justify-between p-4
 				           flex-col md:flex-row md:items-center divide-y-2 divide-[#E8E8E8] gap-y-4
 				          md:divide-y-0 my-[1rem]"
-						  >
+						>
 							<p>{originLink}</p>
 							<div
 								className="flex gap-x-8 md:items-center flex-col md:flex-row
@@ -79,7 +92,9 @@ function ShortenLinks() {
 							>
 								<a
 									className="text-[#29cfcf] mt-4 md:mt-0 text-[0.95rem]"
-									id={`url-${key}`} href={shortenLink} target="_blank"
+									id={`url-${key}`}
+									href={shortenLink}
+									target="_blank"
 								>
 									{shortenLink}
 								</a>
@@ -91,6 +106,15 @@ function ShortenLinks() {
 									id={`btn-${key}`}
 								>
 									Copy
+								</button>
+								<button
+									className="copy-btn"
+									onClick={() => {
+										deleteUrl(value.key,key);
+									}}
+									id={`btn-${key}`}
+								>
+									x
 								</button>
 							</div>
 						</div>
